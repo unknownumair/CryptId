@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>111</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", "Inter", sans-serif;
+    --font-mono: "SF Mono", "JetBrains Mono", Menlo, Monaco, Consolas, monospace;
+    
+    /* Light Theme (macOS Big Sur/Monterey/Sonoma HIG) */
+    --bg: #ECEEF2;
+    --bg-mesh-1: rgba(0, 113, 227, 0.06);
+    --bg-mesh-2: rgba(245, 158, 11, 0.05);
+    --bg-mesh-3: rgba(52, 199, 89, 0.05);
+    --window-bg: rgba(255, 255, 255, 0.92);
+    --window-border: rgba(0, 0, 0, 0.12);
+    --window-shadow: 0 28px 70px -15px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.08);
+    --titlebar-bg: rgba(246, 246, 248, 0.85);
+    --sidebar-bg: rgba(242, 243, 247, 0.82);
+    --sidebar-border: rgba(0, 0, 0, 0.08);
+    --content-bg: #FFFFFF;
+    --card-bg: #FFFFFF;
+    --card-border: rgba(0, 0, 0, 0.09);
+    --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+    --card-hover-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+    
+    --text: #1D1D1F;
+    --text-dim: #6E6E73;
+    --text-faint: #86868B;
+    
+    --accent: #0071E3;
+    --accent-hover: #0077ED;
+    --accent-glow: rgba(0, 113, 227, 0.28);
+    --brass: #D97706;
+    --brass-hi: #B45309;
+    --brass-dim: #F59E0B;
+    --danger: #FF3B30;
+    --danger-hi: #E02E24;
+    --danger-bg: #FFF2F1;
+    --success: #34C759;
+    --success-bg: #ECFDF5;
+    
+    --input-bg: #FFFFFF;
+    --input-border: rgba(0, 0, 0, 0.15);
+    --input-focus-border: #0071E3;
+    --input-focus-ring: rgba(0, 113, 227, 0.18);
+    
+    --item-hover: rgba(0, 0, 0, 0.05);
+    --item-active: #0071E3;
+    --item-active-text: #FFFFFF;
+    
+    --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-apple: cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  [data-theme="dark"] {
+    /* Dark Theme (macOS Dark Mode HIG) */
+    --bg: #121316;
+    --bg-mesh-1: rgba(10, 132, 255, 0.1);
+    --bg-mesh-2: rgba(245, 158, 11, 0.08);
+    --bg-mesh-3: rgba(48, 209, 88, 0.06);
+    --window-bg: rgba(30, 32, 40, 0.92);
+    --window-border: rgba(255, 255, 255, 0.12);
+    --window-shadow: 0 32px 80px -15px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    --titlebar-bg: rgba(36, 38, 48, 0.9);
+    --sidebar-bg: rgba(24, 26, 33, 0.85);
+    --sidebar-border: rgba(255, 255, 255, 0.08);
+    --content-bg: #1B1D24;
+    --card-bg: #242732;
+    --card-border: rgba(255, 255, 255, 0.08);
+    --card-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+    --card-hover-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
+    
+    --text: #F5F5F7;
+    --text-dim: #98989D;
+    --text-faint: #636366;
+    
+    --accent: #0A84FF;
+    --accent-hover: #409CFF;
+    --accent-glow: rgba(10, 132, 255, 0.35);
+    --brass: #F59E0B;
+    --brass-hi: #FBBF24;
+    --brass-dim: #D97706;
+    --danger: #FF453A;
+    --danger-hi: #FF6961;
+    --danger-bg: rgba(255, 69, 58, 0.15);
+    --success: #30D158;
+    --success-bg: rgba(48, 209, 88, 0.15);
+    
+    --input-bg: rgba(255, 255, 255, 0.06);
+    --input-border: rgba(255, 255, 255, 0.14);
+    --input-focus-border: #0A84FF;
+    --input-focus-ring: rgba(10, 132, 255, 0.25);
+    
+    --item-hover: rgba(255, 255, 255, 0.07);
+    --item-active: #0A84FF;
+    --item-active-text: #FFFFFF;
+  }
+
+  *{ box-sizing: border-box; }
+  html, body{ height: 100%; }
+  body{
+    margin: 0;
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(at 15% -10%, var(--bg-mesh-1) 0px, transparent 55%),
+      radial-gradient(at 100% 110%, var(--bg-mesh-2) 0px, transparent 50%),
+      radial-gradient(at 50% 50%, var(--bg-mesh-3) 0px, transparent 60%),
+      radial-gradient(circle at 50% 50%, rgba(150, 150, 150, 0.15) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 100% 100%, 28px 28px;
+    color: var(--text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  h1, h2, h3{ font-family: "Space Grotesk", var(--font-sans); margin: 0; letter-spacing: -0.015em; }
+  .mono{ font-family: var(--font-mono); }
+  ::selection{ background: var(--accent-glow); color: var(--text); }
+  button{ font-family: inherit; cursor: pointer; }
+  input{ font-family: inherit; }
+  a{ color: var(--accent); text-decoration: none; transition: color 0.15s ease; }
+  a:hover{ color: var(--accent-hover); }
+
+  /* ---------- Unified Header Button Controls (Exact Matching Sizes: 34x34) ---------- */
+  .mac-header-btn{
+    background: rgba(120, 120, 128, 0.12);
+    border: 1px solid var(--sidebar-border);
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dim);
+    transition: all 0.2s var(--ease-apple);
+    outline: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    padding: 0;
+  }
+  .mac-header-btn:hover{
+    background: rgba(120, 120, 128, 0.22);
+    color: var(--text);
+    transform: scale(1.06);
+  }
+  .mac-header-btn svg{
+    width: 17px;
+    height: 17px;
+    transition: transform 0.35s var(--ease-spring);
+  }
+  .mac-lock-btn:hover{
+    background: rgba(255, 59, 48, 0.15);
+    border-color: rgba(255, 59, 48, 0.3);
+    color: var(--danger);
+    transform: scale(1.06);
+  }
+
+  /* Theme Switcher Sun / Crescent Moon */
+  .mac-theme-toggle .moon-icon{ display: block; }
+  .mac-theme-toggle .sun-icon{ display: none; }
+  [data-theme="dark"] .mac-theme-toggle .moon-icon{ display: none; }
+  [data-theme="dark"] .mac-theme-toggle .sun-icon{ display: block; }
+  [data-theme="dark"] .mac-theme-toggle svg{ transform: rotate(360deg); }
+
+  /* ---------- Connected Status Tick Badge (Matched: 34x34) ---------- */
+  .status-tick-badge{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--success);
+    color: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(52, 199, 89, 0.35);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+  .status-tick-badge:hover{
+    transform: scale(1.06);
+  }
+  .status-tick-badge svg{
+    width: 17px;
+    height: 17px;
+  }
+
+  /* ---------- Clean Circular Logo (No Glass Backing) ---------- */
+  .logo-wrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    background: transparent;
+    flex-shrink: 0;
+  }
+  .team-logo-circle{
+    object-fit: contain;
+    border-radius: 50%;
+    display: block;
+    user-select: none;
+    pointer-events: none;
+    background: transparent;
+    transition: transform 0.25s var(--ease-apple);
+  }
+  .team-logo-circle:hover{
+    transform: scale(1.04);
+  }
+
+  /* ---------- Three Dots Loading Animation (Theme Adaptive) ---------- */
+  .three-dots-loader{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 22px auto 6px;
+  }
+  .three-dots-loader span{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #0F172A; /* Black in light theme */
+    display: inline-block;
+    animation: dotsBounce 1.4s infinite ease-in-out both;
+  }
+  [data-theme="dark"] .three-dots-loader span{
+    background: #FFFFFF; /* White in dark theme */
+  }
+  .three-dots-loader span:nth-child(1){ animation-delay: -0.32s; }
+  .three-dots-loader span:nth-child(2){ animation-delay: -0.16s; }
+  .three-dots-loader span:nth-child(3){ animation-delay: 0s; }
+
+  @keyframes dotsBounce{
+    0%, 80%, 100%{
+      transform: scale(0.4);
+      opacity: 0.3;
+    }
+    40%{
+      transform: scale(1.15);
+      opacity: 1;
+    }
+  }
+
+  /* ---------- macOS Window Frame (Connect & Auth screens) ---------- */
+  .center-screen{
+    min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px;
+    animation: windowFadeIn 0.35s var(--ease-apple);
+  }
+  @keyframes windowFadeIn{
+    from{ opacity: 0; transform: scale(0.96) translateY(12px); }
+    to{ opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .mac-window{
+    width: 100%; max-width: 440px;
+    background: var(--window-bg);
+    backdrop-filter: blur(28px) saturate(190%);
+    -webkit-backdrop-filter: blur(28px) saturate(190%);
+    border: 1px solid var(--window-border);
+    border-radius: 18px;
+    box-shadow: var(--window-shadow);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .mac-window-bar{
+    height: 48px; padding: 0 16px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--titlebar-bg);
+    border-bottom: 1px solid var(--sidebar-border);
+    user-select: none;
+  }
+  .mac-window-title{
+    font-size: 14px; font-weight: 700; color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  .mac-window-body{
+    padding: 34px 32px 30px;
+  }
+
+  .card-head{ display: flex; flex-direction: column; align-items: center; gap: 12px; margin-bottom: 24px; text-align: center; }
+  .subtitle{ color: var(--text-dim); font-size: 13.5px; line-height: 1.55; max-width: 320px; }
+
+  /* ---------- macOS Native Buttons ---------- */
+  .btn{
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    border-radius: 8px; border: 1px solid transparent;
+    padding: 10px 16px; font-size: 13.5px; font-weight: 600;
+    transition: all 0.18s var(--ease-apple);
+    user-select: none; outline: none;
+  }
+  .btn:active{ transform: scale(0.97); }
+  .btn-primary{
+    background: var(--accent);
+    color: #FFFFFF;
+    box-shadow: 0 2px 8px var(--accent-glow);
+  }
+  .btn-primary:hover{
+    background: var(--accent-hover);
+    box-shadow: 0 4px 14px var(--accent-glow);
+    transform: translateY(-1px);
+  }
+  .btn-primary:disabled{ opacity: 0.45; cursor: not-allowed; transform: none; box-shadow: none; }
+  .btn-ghost{
+    background: rgba(120, 120, 128, 0.1);
+    border-color: var(--sidebar-border);
+    color: var(--text);
+  }
+  .btn-ghost:hover{
+    background: rgba(120, 120, 128, 0.18);
+    border-color: var(--card-border);
+    transform: translateY(-1px);
+  }
+  .btn-danger{
+    background: var(--danger-bg);
+    border-color: rgba(255, 59, 48, 0.3);
+    color: var(--danger);
+    font-weight: 600;
+  }
+  .btn-danger:hover{
+    background: rgba(255, 59, 48, 0.2);
+    border-color: var(--danger);
+    transform: translateY(-1px);
+  }
+  .btn-block{ width: 100%; }
+  .btn-sm{ padding: 6px 12px; font-size: 12px; border-radius: 6px; font-weight: 600; }
+
+  /* ---------- macOS Form Inputs ---------- */
+  .field{ margin-bottom: 16px; }
+  .field label{ display: block; font-size: 11px; font-weight: 700; color: var(--text-dim); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .field input{
+    width: 100%; background: var(--input-bg); border: 1px solid var(--input-border); color: var(--text);
+    border-radius: 8px; padding: 10px 12px; font-size: 14px; outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  }
+  .field input:focus{
+    border-color: var(--input-focus-border);
+    box-shadow: 0 0 0 3px var(--input-focus-ring);
+  }
+  .field input[readonly]{
+    background: rgba(120, 120, 128, 0.08);
+    color: var(--text-dim);
+    cursor: not-allowed;
+  }
+  .field-row{ display: flex; gap: 10px; align-items: flex-end; }
+  .field-row .field{ flex: 1; margin-bottom: 0; }
+  .error-text{ color: var(--danger); font-size: 12.5px; margin-top: 8px; min-height: 16px; font-weight: 500; }
+  .hint-text{ color: var(--text-faint); font-size: 11.5px; margin-top: 6px; line-height: 1.5; }
+
+  /* ---------- Dashboard macOS Main Shell ---------- */
+  #app{ min-height: 100vh; }
+  .topbar{
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 22px; border-bottom: 1px solid var(--sidebar-border);
+    background: var(--titlebar-bg);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    position: sticky; top: 0; z-index: 20;
+    user-select: none;
+  }
+  .topbar-left{ display: flex; align-items: center; }
+  .topbar-right{ display: flex; align-items: center; gap: 10px; }
+
+  /* ---------- macOS Sidebar & Main Split Layout ---------- */
+  .layout{ display: grid; grid-template-columns: 290px 1fr; min-height: calc(100vh - 55px); }
+  @media (max-width: 768px){
+    .layout{ grid-template-columns: 1fr; }
+    .sidebar{ border-right: none; border-bottom: 1px solid var(--sidebar-border); }
+  }
+
+  .sidebar{
+    border-right: 1px solid var(--sidebar-border);
+    background: var(--sidebar-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 18px 16px; display: flex; flex-direction: column; gap: 14px;
+  }
+  .search-input{
+    width: 100%; background: var(--input-bg); border: 1px solid var(--input-border); color: var(--text);
+    border-radius: 8px; padding: 8px 12px; font-size: 13px; outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .search-input:focus{
+    border-color: var(--input-focus-border);
+    box-shadow: 0 0 0 3px var(--input-focus-ring);
+  }
+  .site-list{ display: flex; flex-direction: column; gap: 4px; overflow-y: auto; }
+  .site-item{
+    position: relative;
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    padding: 9px 12px; border-radius: 7px; cursor: pointer; border: 1px solid transparent;
+    color: var(--text-dim); font-size: 13.5px;
+    transition: all 0.16s var(--ease-apple);
+    user-select: none;
+  }
+  .site-item:hover{ background: var(--item-hover); color: var(--text); }
+  .site-item.active{
+    background: var(--item-active);
+    color: var(--item-active-text);
+    font-weight: 600;
+    box-shadow: 0 2px 6px var(--accent-glow);
+  }
+  .site-item .count{
+    font-size: 11px; color: inherit; opacity: 0.85;
+    background: rgba(120, 120, 128, 0.16); padding: 2px 7px; border-radius: 12px; font-weight: 500;
+  }
+  .empty-note{ color: var(--text-faint); font-size: 13px; padding: 20px 12px; text-align: center; }
+
+  .main{ padding: 28px 32px; background: var(--content-bg); }
+  .main-head{ display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; flex-wrap: wrap; gap: 12px; }
+  .main-head h2{ font-size: 20px; color: var(--text); font-weight: 700; word-break: break-all; }
+
+  /* ---------- macOS Account Cards ---------- */
+  .account-card{
+    background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px;
+    padding: 16px 18px; margin-bottom: 12px; box-shadow: var(--card-shadow);
+    transition: transform 0.18s var(--ease-apple), box-shadow 0.18s var(--ease-apple), border-color 0.18s ease;
+  }
+  .account-card:hover{
+    transform: translateY(-2px);
+    border-color: var(--window-border);
+    box-shadow: var(--card-hover-shadow);
+  }
+  .account-row{ display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+  .account-info{ display: flex; flex-direction: column; gap: 4px; min-width: 200px; }
+  .account-info .username{ font-size: 14px; font-weight: 600; color: var(--text); }
+  .account-info .password-line{ display: flex; align-items: center; gap: 8px; color: var(--text-dim); font-size: 13px; }
+  .account-actions{ display: flex; gap: 6px; flex-wrap: wrap; }
+  .icon-btn{
+    background: rgba(120, 120, 128, 0.08); border: 1px solid var(--card-border); color: var(--text);
+    border-radius: 6px; padding: 6px 10px; font-size: 12px; display: flex; align-items: center; gap: 5px;
+    font-weight: 500; transition: all 0.15s var(--ease-apple);
+  }
+  .icon-btn:hover{
+    background: rgba(120, 120, 128, 0.18);
+    border-color: var(--window-border);
+    transform: translateY(-1px);
+  }
+
+  .empty-state{
+    text-align: center; padding: 70px 20px; color: var(--text-faint);
+    animation: windowFadeIn 0.35s var(--ease-apple);
+  }
+  .empty-state .logo-wrap{ margin-bottom: 18px; opacity: 0.9; }
+  .empty-state h3{ color: var(--text); font-size: 17px; margin-bottom: 6px; font-weight: 600; }
+  .empty-state p{ font-size: 13.5px; color: var(--text-dim); max-width: 340px; margin: 0 auto; line-height: 1.55; }
+
+  /* ---------- macOS Sheet / Modal ---------- */
+  .modal-backdrop{
+    position: fixed; inset: 0; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center; z-index: 60; padding: 20px;
+    animation: backdropFade 0.2s ease forwards;
+  }
+  @keyframes backdropFade{ from{ opacity: 0; } to{ opacity: 1; } }
+  .modal{
+    width: 100%; max-width: 420px; background: var(--window-bg); border: 1px solid var(--window-border);
+    border-radius: 16px; padding: 26px 24px 22px;
+    box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.35);
+    animation: modalSlideDown 0.28s var(--ease-spring) forwards;
+  }
+  @keyframes modalSlideDown{
+    from{ opacity: 0; transform: scale(0.95) translateY(-14px); }
+    to{ opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .modal h3{ font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .modal .modal-sub{ color: var(--text-dim); font-size: 13px; margin-bottom: 18px; line-height: 1.5; }
+  .modal-actions{ display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px; }
+  .gen-row{ display: flex; gap: 8px; }
+  .gen-row input{ flex: 1; }
+
+  /* ---------- Toast Notifications ---------- */
+  #toast-wrap{ position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 100; display: flex; flex-direction: column; gap: 8px; align-items: center; pointer-events: none; }
+  .toast{
+    pointer-events: auto;
+    background: var(--window-bg); border: 1px solid var(--window-border); color: var(--text);
+    padding: 10px 18px; border-radius: 20px; font-size: 13px; font-weight: 600;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25);
+    animation: toastIn 0.25s var(--ease-spring) forwards;
+  }
+  .toast.success{ border-left: 4px solid var(--success); }
+  .toast.error{ border-left: 4px solid var(--danger); }
+  @keyframes toastIn{
+    from{ opacity: 0; transform: translateY(12px) scale(0.95); }
+    to{ opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .visually-hidden{ position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+  :focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
+  .footer-note{ text-align: center; color: var(--text-faint); font-size: 11.5px; margin-top: 20px; }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(120, 120, 128, 0.25); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(120, 120, 128, 0.45); }
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+<div id="toast-wrap"></div>
+
+<script>
+/* =========================================================
+   Theme Management (Persisted in localStorage)
+========================================================= */
+function initTheme(){
+  const saved = localStorage.getItem('vault_theme');
+  const theme = saved || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', theme);
+  return theme;
+}
+
+function toggleTheme(){
+  const current = document.documentElement.getAttribute('data-theme') || 'light';
+  const next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('vault_theme', next);
+  render();
+}
+
+function getLogoSrc(){
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  return isDark ? 'logo-white.png' : 'logo-black.png';
+}
+
+function themeToggleBtnHTML(){
+  return `
+    <button class="mac-header-btn mac-theme-toggle" id="theme-toggle-btn" aria-label="Toggle Dark/Light Mode" title="Toggle Dark/Light Mode">
+      <!-- Moon Icon shown in Light mode to switch to Dark mode -->
+      <svg class="moon-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+      <!-- Sun Icon shown in Dark mode to switch to Light mode -->
+      <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+    </button>
+  `;
+}
+
+function logoHTML(size){
+  size = size || 80;
+  return `
+    <div class="logo-wrap">
+      <img src="${getLogoSrc()}" alt="111" class="team-logo-circle" style="width:${size}px; height:${size}px;" onerror="this.style.display='none'" />
+    </div>
+  `;
+}
+
+function statusTickBadgeHTML(){
+  return `
+    <div class="status-tick-badge" title="Hardware Wallet Connected" aria-label="Connected">
+      <svg viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+      </svg>
+    </div>
+  `;
+}
+
+function lockBtnHTML(){
+  return `
+    <button class="mac-header-btn mac-lock-btn" id="btn-lock" aria-label="Lock Vault" title="Lock Vault">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+    </button>
+  `;
+}
+
+/* =========================================================
+   Serial link: talks to the ESP32 over WebSerial
+   Protocol note (v2 firmware): every real protocol line the device sends
+   - boot status or a command reply - is prefixed with "VLT:". Anything
+   else on the wire (boot-ROM chatter after reset, or the character echo
+   the firmware does for interactive terminal use) never has that prefix,
+   so we just ignore any line that doesn't start with it. No more guessing
+   how many lines to consume.
+========================================================= */
+class VaultLink {
+  constructor(){
+    this.port = null;
+    this.writer = null;
+    this.reader = null;
+    this.lineBuffer = '';
+    this.waiters = [];
+    this.onUnsolicited = null;
+    this.onDisconnect = null;
+  }
+
+  async connect(){
+    if (!('serial' in navigator)) {
+      throw new Error('NO_WEBSERIAL');
+    }
+    this.port = await navigator.serial.requestPort();
+    await this.port.open({ baudRate: 115200 });
+
+    try{
+      await this.port.setSignals({ dataTerminalReady: false, requestToSend: false });
+    } catch(sigErr){
+    }
+
+    this.writer = this.port.writable.getWriter();
+    this._readLoop();
+    navigator.serial.addEventListener('disconnect', (e) => {
+      if (e.target === this.port && this.onDisconnect) this.onDisconnect();
+    });
+  }
+
+  async _readLoop(){
+    const decoder = new TextDecoderStream();
+    const readableClosed = this.port.readable.pipeTo(decoder.writable);
+    this.reader = decoder.readable.getReader();
+    try{
+      while(true){
+        const { value, done } = await this.reader.read();
+        if (done) break;
+        if (value){
+          this.lineBuffer += value;
+          let idx;
+          while((idx = this.lineBuffer.indexOf('\n')) >= 0){
+            const line = this.lineBuffer.slice(0, idx).replace(/\r$/,'');
+            this.lineBuffer = this.lineBuffer.slice(idx+1);
+            this._deliverLine(line);
+          }
+        }
+      }
+    } catch(e){
+      if (this.onDisconnect) this.onDisconnect();
+    }
+  }
+
+  _deliverLine(rawLine){
+    console.log('[vault RX]', JSON.stringify(rawLine));
+    if (rawLine.indexOf('VLT:') !== 0) return;
+    const line = rawLine.slice(4);
+    if (this.waiters.length > 0){
+      const resolve = this.waiters.shift();
+      resolve(line);
+    } else if (this.onUnsolicited){
+      this.onUnsolicited(line);
+    }
+  }
+
+  _nextLine(timeoutMs){
+    return new Promise((resolve, reject) => {
+      const timer = timeoutMs ? setTimeout(() => {
+        const idx = this.waiters.indexOf(wrapped);
+        if (idx >= 0) this.waiters.splice(idx,1);
+        reject(new Error('TIMEOUT'));
+      }, timeoutMs) : null;
+      const wrapped = (line) => { if (timer) clearTimeout(timer); resolve(line); };
+      this.waiters.push(wrapped);
+    });
+  }
+
+  async send(cmd, timeoutMs){
+    console.log('[vault TX]', cmd.indexOf('UNLOCK:') === 0 ? 'UNLOCK:***' : cmd);
+    const data = new TextEncoder().encode(cmd + '\n');
+    await this.writer.write(data);
+    const reply = await this._nextLine(timeoutMs || 8000);
+    return reply;
+  }
+
+  async close(){
+    try{ if (this.reader) await this.reader.cancel(); }catch(e){}
+    try{ if (this.writer) this.writer.releaseLock(); }catch(e){}
+    try{ if (this.port) await this.port.close(); }catch(e){}
+  }
+}
+
+/* =========================================================
+   App state
+========================================================= */
+const app = document.getElementById('app');
+const state = {
+  screen: 'connect',     // connect | connecting | auth | dashboard
+  link: null,
+  connectError: '',
+  authBusy: false,
+  authError: '',
+  sites: [],              // list of domain strings
+  selectedDomain: null,
+  accounts: [],           // accounts for selectedDomain: [{username, password, revealed}]
+  search: '',
+  modal: null,            // { type: 'confirmPassword'|'addAccount'|'editAccount'|'deleteAccount', ... }
+  deviceVersion: '',
+  sdWarning: false,
+};
+
+function toast(msg, kind){
+  const wrap = document.getElementById('toast-wrap');
+  const el = document.createElement('div');
+  el.className = 'toast ' + (kind || '');
+  el.textContent = msg;
+  wrap.appendChild(el);
+  setTimeout(() => el.remove(), 3200);
+}
+
+function friendlyError(reply){
+  const map = {
+    'FAIL:BADPASSWORD': 'Incorrect master password.',
+    'FAIL:BADFORMAT': "That entry couldn't be read - check the fields and try again.",
+    'FAIL:BADCHARS': "Domain and username can't contain | or ; characters.",
+    'FAIL:TOOLONG': 'One of the fields is too long (128 characters max).',
+    'FAIL:WRITE': "Couldn't save to the SD card - check the card and try again.",
+    'FAIL:LOCKED': 'Vault is locked. Reconnect and unlock first.',
+    'FAIL:SALT': 'Device storage error while preparing the vault.',
+    'FAIL:KDF': 'Device error while processing the password.',
+    'FAIL:INIT': 'Could not set up the vault on the device.',
+    'FAIL:SDINIT': 'SD card not detected on the device.',
+    'FAIL:CMDTOOLONG': 'That request was too long.',
+    'FAIL:UNKNOWNCMD': 'Device did not recognize that request.',
+    'NOTFOUND': 'No matching entry found.',
+  };
+  return map[reply] || ('Something went wrong (' + reply + ').');
+}
+
+/* =========================================================
+   Render: Connect screen (111 macOS Window style)
+========================================================= */
+function renderConnect(){
+  const supported = ('serial' in navigator);
+  app.innerHTML = `
+    <div class="center-screen">
+      <div class="mac-window">
+        <div class="mac-window-bar">
+          <div class="mac-window-title"></div>
+          ${themeToggleBtnHTML()}
+        </div>
+        <div class="mac-window-body">
+          <div class="card-head">
+            ${logoHTML(96)}
+            <p class="subtitle" style="margin-top:8px;">An offline hardware cold wallet. Plug in your device and connect over USB to manage your saved accounts.</p>
+          </div>
+          ${supported ? `
+            <button class="btn btn-primary btn-block" id="btn-connect">Connect Device</button>
+          ` : `
+            <p class="error-text" style="text-align:center;">WebSerial isn't supported in this browser. Open this page in Chrome or Edge.</p>
+          `}
+          ${state.connectError ? `<p class="error-text" style="text-align:center;">${state.connectError}</p>` : ''}
+          <p class="footer-note">Your vault stays on the device. Nothing is stored by this page.</p>
+        </div>
+      </div>
+    </div>
+  `;
+  const btn = document.getElementById('btn-connect');
+  if (btn) btn.addEventListener('click', handleConnect);
+  const themeBtn = document.getElementById('theme-toggle-btn');
+  if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+}
+
+async function handleConnect(){
+  state.connectError = '';
+  state.screen = 'connecting';
+  render();
+  try{
+    const link = new VaultLink();
+    await link.connect();
+    link.onUnsolicited = handleUnsolicited;
+    link.onDisconnect = handleDeviceDisconnect;
+    state.link = link;
+    state.deviceVersion = '';
+    state.sdWarning = false;
+
+    state.screen = 'auth';
+    render();
+  } catch(e){
+    if (e.message === 'NO_WEBSERIAL'){
+      state.connectError = 'WebSerial is not supported in this browser.';
+    } else if (e.name === 'NotFoundError'){
+      state.connectError = '';
+    } else if (e.name === 'NetworkError' || e.name === 'InvalidStateError'){
+      state.connectError = 'Port is already in use. Close any other program using this port and try again.';
+    } else {
+      state.connectError = "Couldn't connect to the device. Check the cable and try again.";
+    }
+    state.screen = 'connect';
+    render();
+  }
+}
+
+function handleDeviceDisconnect(){
+  toast('Device disconnected.', 'error');
+  state.link = null;
+  state.screen = 'connect';
+  state.selectedDomain = null;
+  state.sites = [];
+  state.accounts = [];
+  render();
+}
+
+function handleUnsolicited(line){
+  if (line === 'LOCKED:TIMEOUT'){
+    toast('Vault auto-locked after 5 minutes of inactivity.', 'error');
+    state.screen = 'auth';
+    state.selectedDomain = null;
+    state.accounts = [];
+    render();
+    return;
+  }
+  if (line === 'BOOT'){
+    return;
+  }
+  if (line === 'READY'){
+    state.sdWarning = false;
+    if (state.screen === 'auth') render();
+    return;
+  }
+  if (line === 'SDFAIL'){
+    state.sdWarning = true;
+    toast('SD card not detected on the device - check the wiring.', 'error');
+    if (state.screen === 'auth') render();
+    return;
+  }
+  if (line.indexOf('VERSION:') === 0){
+    state.deviceVersion = line.replace('VERSION:', '');
+    if (state.screen === 'auth') render();
+    return;
+  }
+}
+
+/* =========================================================
+   Render: Connecting screen (3 Dots Animation)
+========================================================= */
+function renderConnecting(){
+  app.innerHTML = `
+    <div class="center-screen">
+      <div class="mac-window">
+        <div class="mac-window-bar">
+          <div class="mac-window-title"></div>
+          ${themeToggleBtnHTML()}
+        </div>
+        <div class="mac-window-body" style="text-align:center; padding: 40px 30px;">
+          ${logoHTML(96)}
+          <div class="three-dots-loader" aria-label="Connecting...">
+            <span></span><span></span><span></span>
+          </div>
+          <p class="subtitle" style="margin-top:16px;">Connecting to hardware wallet…</p>
+        </div>
+      </div>
+    </div>
+  `;
+  const themeBtn = document.getElementById('theme-toggle-btn');
+  if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+}
+
+/* =========================================================
+   Render: Auth (master password) screen
+========================================================= */
+function renderAuth(){
+  app.innerHTML = `
+    <div class="center-screen">
+      <div class="mac-window">
+        <div class="mac-window-bar">
+          <div class="mac-window-title"></div>
+          ${themeToggleBtnHTML()}
+        </div>
+        <div class="mac-window-body">
+          <div class="card-head">
+            ${logoHTML(88)}
+            <p class="subtitle" style="margin-top:8px;">Enter your master password to unlock the vault. If this is the first time connecting this device, this password will become the master password.</p>
+          </div>
+          ${state.sdWarning ? `<p class="error-text" style="text-align:center; margin-bottom:14px;">⚠ Device reported no SD card detected. Check the wiring before continuing.</p>` : ''}
+          <form id="auth-form">
+            <div class="field">
+              <label for="auth-password">Master password</label>
+              <input type="password" id="auth-password" autocomplete="off" autofocus />
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" id="auth-submit" ${state.authBusy ? 'disabled' : ''}>
+              ${state.authBusy ? 'Unlocking…' : 'Unlock Vault'}
+            </button>
+            <p class="error-text">${state.authError || ''}</p>
+          </form>
+          <p class="footer-note">${state.deviceVersion ? 'Firmware ' + state.deviceVersion : 'Waiting for device info…'}</p>
+        </div>
+      </div>
+    </div>
+  `;
+  document.getElementById('auth-form').addEventListener('submit', handleAuthSubmit);
+  const themeBtn = document.getElementById('theme-toggle-btn');
+  if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+}
+
+async function handleAuthSubmit(e){
+  e.preventDefault();
+  const pw = document.getElementById('auth-password').value;
+  if (!pw){ state.authError = 'Enter a password.'; render(); return; }
+  state.authBusy = true;
+  state.authError = '';
+  render();
+  try{
+    const reply = await state.link.send('UNLOCK:' + pw);
+    if (reply === 'OK' || reply === 'OK:INITIALIZED'){
+      if (reply === 'OK:INITIALIZED') toast('Master password created.', 'success');
+      state.authBusy = false;
+      await enterDashboard();
+    } else {
+      state.authBusy = false;
+      state.authError = friendlyError(reply);
+      render();
+    }
+  } catch(err){
+    console.error('[vault] UNLOCK failed:', err);
+    state.authBusy = false;
+    state.authError = "Device didn't respond in time. It may still be starting up (SD card init can be slow) - wait a couple seconds and try again. If this keeps happening, check the SD card wiring.";
+    render();
+  }
+}
+
+async function enterDashboard(){
+  state.screen = 'dashboard';
+  state.selectedDomain = null;
+  state.accounts = [];
+  await refreshSiteList();
+  render();
+}
+
+async function refreshSiteList(){
+  try{
+    const reply = await state.link.send('LIST');
+    state.sites = reply ? reply.split(';').filter(Boolean) : [];
+  } catch(e){
+    toast('Could not load the site list.', 'error');
+  }
+}
+
+/* =========================================================
+   Render: Dashboard (111 macOS Desktop Style)
+========================================================= */
+function renderDashboard(){
+  const filteredSites = state.sites.filter(d => d.toLowerCase().includes(state.search.toLowerCase()));
+
+  app.innerHTML = `
+    <div class="topbar">
+      <div class="topbar-left">
+        ${logoHTML(34)}
+      </div>
+      <div class="topbar-right">
+        ${statusTickBadgeHTML()}
+        ${themeToggleBtnHTML()}
+        ${lockBtnHTML()}
+      </div>
+    </div>
+    <div class="layout">
+      <div class="sidebar">
+        <button class="btn btn-primary btn-block btn-sm" id="btn-add-site">+ Add Account</button>
+        <input class="search-input" id="search-input" placeholder="Search sites…" value="${escapeAttr(state.search)}" />
+        <div class="site-list">
+          ${filteredSites.length === 0 ? `<div class="empty-note">${state.sites.length === 0 ? 'No sites saved yet.' : 'No matches.'}</div>` :
+            filteredSites.map(d => `
+              <div class="site-item ${d === state.selectedDomain ? 'active' : ''}" data-domain="${escapeAttr(d)}">
+                <span class="mono">${escapeHtml(d)}</span>
+              </div>
+            `).join('')
+          }
+        </div>
+      </div>
+      <div class="main" id="main-panel"></div>
+    </div>
+  `;
+
+  document.getElementById('btn-lock').addEventListener('click', handleLock);
+  document.getElementById('btn-add-site').addEventListener('click', () => openAddAccountModal(null));
+  const themeBtn = document.getElementById('theme-toggle-btn');
+  if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+
+  document.getElementById('search-input').addEventListener('input', (e) => {
+    state.search = e.target.value;
+    render();
+  });
+  document.querySelectorAll('.site-item').forEach(el => {
+    el.addEventListener('click', () => selectSite(el.dataset.domain));
+  });
+
+  renderMainPanel();
+}
+
+function renderMainPanel(){
+  const el = document.getElementById('main-panel');
+  if (!el) return;
+
+  if (!state.selectedDomain){
+    el.innerHTML = `
+      <div class="empty-state">
+        ${logoHTML(72)}
+        <h3 style="margin-top:16px;">Select a site</h3>
+        <p>Choose a saved site from the sidebar list, or add a new account to get started.</p>
+      </div>
+    `;
+    return;
+  }
+
+  el.innerHTML = `
+    <div class="main-head">
+      <h2 class="mono">${escapeHtml(state.selectedDomain)}</h2>
+      <button class="btn btn-ghost btn-sm" id="btn-add-account-here">+ Add account for this site</button>
+    </div>
+    <div id="accounts-list">
+      ${state.accounts.length === 0 ? `<p class="empty-note">No accounts loaded.</p>` :
+        state.accounts.map((acc, i) => `
+          <div class="account-card">
+            <div class="account-row">
+              <div class="account-info">
+                <span class="username mono">${escapeHtml(acc.username)}</span>
+                <span class="password-line mono">
+                  ${acc.revealed ? escapeHtml(acc.password) : '••••••••'}
+                </span>
+              </div>
+              <div class="account-actions">
+                <button class="icon-btn" data-action="reveal" data-i="${i}">${acc.revealed ? 'Hide' : 'Show'}</button>
+                <button class="icon-btn" data-action="copy-user" data-i="${i}">Copy user</button>
+                <button class="icon-btn" data-action="copy-pass" data-i="${i}">Copy pass</button>
+                <button class="icon-btn" data-action="edit" data-i="${i}">Edit</button>
+                <button class="icon-btn" data-action="delete" data-i="${i}" style="color:var(--danger); border-color:rgba(255,59,48,0.3);">Delete</button>
+              </div>
+            </div>
+          </div>
+        `).join('')
+      }
+    </div>
+  `;
+
+  document.getElementById('btn-add-account-here').addEventListener('click', () => openAddAccountModal(state.selectedDomain));
+  document.querySelectorAll('[data-action]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const i = parseInt(btn.dataset.i, 10);
+      const action = btn.dataset.action;
+      const acc = state.accounts[i];
+      if (action === 'reveal') handleRevealToggle(i, acc);
+      else if (action === 'copy-user') copyToClipboard(acc.username, 'Username copied.');
+      else if (action === 'copy-pass') handleCopyPassword(acc);
+      else if (action === 'edit') handleEditRequest(acc);
+      else if (action === 'delete') handleDeleteRequest(acc);
+    });
+  });
+}
+
+async function selectSite(domain){
+  state.selectedDomain = domain;
+  state.accounts = [];
+  render();
+  try{
+    const reply = await state.link.send('GET:' + domain);
+    if (reply === 'NOTFOUND' || !reply){
+      state.accounts = [];
+    } else {
+      state.accounts = reply.split(';').filter(Boolean).map(pair => {
+        const idx = pair.indexOf('|');
+        return { username: pair.slice(0, idx), password: pair.slice(idx+1), revealed: false };
+      });
+    }
+  } catch(e){
+    toast('Could not load accounts for this site.', 'error');
+  }
+  renderMainPanel();
+}
+
+async function handleLock(){
+  try{ await state.link.send('LOCK'); } catch(e){}
+  state.screen = 'auth';
+  state.selectedDomain = null;
+  state.accounts = [];
+  render();
+}
+
+/* ---------- Reveal (re-confirms master password) ---------- */
+function handleRevealToggle(i, acc){
+  if (acc.revealed){
+    acc.revealed = false;
+    renderMainPanel();
+    return;
+  }
+  openConfirmPasswordModal('View password', 'Re-enter your master password to reveal this password.', async () => {
+    acc.revealed = true;
+    renderMainPanel();
+  });
+}
+
+function handleCopyPassword(acc){
+  openConfirmPasswordModal('Copy password', 'Re-enter your master password to copy this password.', async () => {
+    copyToClipboard(acc.password, 'Password copied.');
+  });
+}
+
+function copyToClipboard(text, msg){
+  navigator.clipboard.writeText(text).then(() => toast(msg, 'success')).catch(() => toast('Could not copy.', 'error'));
+}
+
+/* ---------- Add / Edit account ---------- */
+function openAddAccountModal(prefillDomain){
+  state.modal = { type: 'addAccount', domain: prefillDomain || '', username: '', password: '' };
+  render();
+}
+
+function handleEditRequest(acc){
+  openConfirmPasswordModal('Edit account', 'Re-enter your master password to edit this account.', async () => {
+    state.modal = { type: 'editAccount', domain: state.selectedDomain, username: acc.username, password: acc.password };
+    render();
+  });
+}
+
+function handleDeleteRequest(acc){
+  openConfirmPasswordModal('Delete account', "Re-enter your master password to delete this account. This can't be undone.", async () => {
+    state.modal = { type: 'deleteConfirm', domain: state.selectedDomain, username: acc.username };
+    render();
+  });
+}
+
+/* ---------- Master-password re-confirmation modal ---------- */
+function openConfirmPasswordModal(title, sub, onConfirmed){
+  state.modal = { type: 'confirmPassword', title, sub, onConfirmed, busy:false, error:'' };
+  render();
+}
+
+function generatePassword(len){
+  len = len || 16;
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%^&*-_=+';
+  const bytes = new Uint32Array(len);
+  crypto.getRandomValues(bytes);
+  let out = '';
+  for (let i=0;i<len;i++) out += chars[bytes[i] % chars.length];
+  return out;
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function escapeAttr(s){ return escapeHtml(s); }
+
+/* =========================================================
+   Render: Modal (macOS Native Sheet style)
+========================================================= */
+function renderModal(){
+  const existing = document.getElementById('modal-root');
+  if (existing) existing.remove();
+  if (!state.modal) return;
+
+  const root = document.createElement('div');
+  root.id = 'modal-root';
+  document.body.appendChild(root);
+
+  if (state.modal.type === 'confirmPassword'){
+    root.innerHTML = `
+      <div class="modal-backdrop">
+        <div class="modal">
+          <h3>${state.modal.title}</h3>
+          <p class="modal-sub">${state.modal.sub}</p>
+          <form id="confirm-form">
+            <div class="field">
+              <label for="confirm-password">Master password</label>
+              <input type="password" id="confirm-password" autocomplete="off" autofocus />
+            </div>
+            <p class="error-text">${state.modal.error || ''}</p>
+            <div class="modal-actions">
+              <button type="button" class="btn btn-ghost btn-sm" id="modal-cancel">Cancel</button>
+              <button type="submit" class="btn btn-primary btn-sm" ${state.modal.busy ? 'disabled' : ''}>${state.modal.busy ? 'Checking…' : 'Confirm'}</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    `;
+    document.getElementById('modal-cancel').addEventListener('click', closeModal);
+    document.getElementById('confirm-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const pw = document.getElementById('confirm-password').value;
+      state.modal.busy = true; state.modal.error = '';
+      renderModal();
+      try{
+        const reply = await state.link.send('UNLOCK:' + pw);
+        if (reply === 'OK' || reply === 'OK:INITIALIZED'){
+          const cb = state.modal.onConfirmed;
+          closeModal();
+          await cb();
+        } else {
+          state.modal.busy = false;
+          state.modal.error = friendlyError(reply);
+          renderModal();
+        }
+      } catch(err){
+        state.modal.busy = false;
+        state.modal.error = 'No response from device.';
+        renderModal();
+      }
+    });
+    return;
+  }
+
+  if (state.modal.type === 'addAccount' || state.modal.type === 'editAccount'){
+    const isEdit = state.modal.type === 'editAccount';
+    root.innerHTML = `
+      <div class="modal-backdrop">
+        <div class="modal">
+          <h3>${isEdit ? 'Edit account' : 'Add account'}</h3>
+          <p class="modal-sub">${isEdit ? "Domain and username can't be changed here — delete and re-add to change those." : 'Save a new site and account to the vault.'}</p>
+          <form id="account-form">
+            <div class="field">
+              <label for="f-domain">Domain</label>
+              <input type="text" id="f-domain" placeholder="example.com" value="${escapeAttr(state.modal.domain)}" ${isEdit ? 'readonly' : ''} />
+            </div>
+            <div class="field">
+              <label for="f-username">Username / email</label>
+              <input type="text" id="f-username" value="${escapeAttr(state.modal.username)}" ${isEdit ? 'readonly' : ''} />
+            </div>
+            <div class="field">
+              <label for="f-password">Password</label>
+              <div class="gen-row">
+                <input type="text" id="f-password" class="mono" value="${escapeAttr(state.modal.password)}" />
+                <button type="button" class="btn btn-ghost btn-sm" id="f-generate">Generate</button>
+              </div>
+            </div>
+            <p class="error-text">${state.modal.error || ''}</p>
+            <div class="modal-actions">
+              <button type="button" class="btn btn-ghost btn-sm" id="modal-cancel">Cancel</button>
+              <button type="submit" class="btn btn-primary btn-sm" ${state.modal.busy ? 'disabled' : ''}>${state.modal.busy ? 'Saving…' : 'Save'}</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    `;
+    document.getElementById('modal-cancel').addEventListener('click', closeModal);
+    document.getElementById('f-generate').addEventListener('click', () => {
+      document.getElementById('f-password').value = generatePassword(16);
+    });
+    document.getElementById('account-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const domain = document.getElementById('f-domain').value.trim();
+      const username = document.getElementById('f-username').value.trim();
+      const password = document.getElementById('f-password').value;
+      if (!domain || !username || !password){
+        state.modal.error = 'All fields are required.';
+        renderModal();
+        return;
+      }
+      state.modal.busy = true; state.modal.error = '';
+      renderModal();
+      try{
+        const reply = await state.link.send(`SAVE:${domain}|${username}|${password}`);
+        if (reply === 'OK'){
+          toast(isEdit ? 'Account updated.' : 'Account saved.', 'success');
+          closeModal();
+          await refreshSiteList();
+          await selectSite(domain);
+          render();
+        } else {
+          state.modal.busy = false;
+          state.modal.error = friendlyError(reply);
+          renderModal();
+        }
+      } catch(err){
+        state.modal.busy = false;
+        state.modal.error = 'No response from device.';
+        renderModal();
+      }
+    });
+    return;
+  }
+
+  if (state.modal.type === 'deleteConfirm'){
+    root.innerHTML = `
+      <div class="modal-backdrop">
+        <div class="modal">
+          <h3>Delete this account?</h3>
+          <p class="modal-sub">This will permanently remove <span class="mono">${escapeHtml(state.modal.username)}</span> on <span class="mono">${escapeHtml(state.modal.domain)}</span> from the vault.</p>
+          <p class="error-text">${state.modal.error || ''}</p>
+          <div class="modal-actions">
+            <button type="button" class="btn btn-ghost btn-sm" id="modal-cancel">Cancel</button>
+            <button type="button" class="btn btn-danger btn-sm" id="modal-confirm-delete">${state.modal.busy ? 'Deleting…' : 'Delete'}</button>
+          </div>
+        </div>
+      </div>
+    `;
+    document.getElementById('modal-cancel').addEventListener('click', closeModal);
+    document.getElementById('modal-confirm-delete').addEventListener('click', async () => {
+      state.modal.busy = true;
+      renderModal();
+      try{
+        const reply = await state.link.send(`DELETE:${state.modal.domain}|${state.modal.username}`);
+        if (reply === 'OK'){
+          toast('Account deleted.', 'success');
+          const domain = state.modal.domain;
+          closeModal();
+          await refreshSiteList();
+          if (state.sites.includes(domain)){
+            await selectSite(domain);
+          } else {
+            state.selectedDomain = null;
+            state.accounts = [];
+          }
+          render();
+        } else {
+          state.modal.busy = false;
+          state.modal.error = friendlyError(reply);
+          renderModal();
+        }
+      } catch(err){
+        state.modal.busy = false;
+        state.modal.error = 'No response from device.';
+        renderModal();
+      }
+    });
+    return;
+  }
+}
+
+function closeModal(){
+  state.modal = null;
+  const existing = document.getElementById('modal-root');
+  if (existing) existing.remove();
+}
+
+/* =========================================================
+   Main render dispatcher
+========================================================= */
+function render(){
+  if (state.screen === 'connect') renderConnect();
+  else if (state.screen === 'connecting') renderConnecting();
+  else if (state.screen === 'auth') renderAuth();
+  else if (state.screen === 'dashboard') renderDashboard();
+  renderModal();
+}
+
+initTheme();
+render();
+</script>
+</body>
+</html>
