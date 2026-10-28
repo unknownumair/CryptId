@@ -5,7 +5,7 @@
 SecureVault is a "cold wallet" style password manager. Instead of storing credentials in the cloud or in your browser, every password lives encrypted on a physical ESP32 device with an SD card. There is no internet connection, no server, and no sync — the only way in or out of the vault is a direct USB connection.
 
 ---
-## Wev Interface to manage valut:
+## Web Interface to manage valut:
 https://webvault.42web.io
 
 ## Why
